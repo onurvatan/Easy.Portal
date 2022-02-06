@@ -1,21 +1,33 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Easy.Portal.Data;
+﻿using Easy.Portal.Web.Brokers.API;
+using Easy.Portal.Web.Brokers.Logging;
+using Easy.Portal.Web.Models.Configurations;
+using RESTFulSense.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/Views/Pages";
+});
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddHttpClient<IRESTFulApiFactoryClient, RESTFulApiFactoryClient>(client =>
+{
+    LocalConfigurations localConfigurations = builder.Configuration.Get<LocalConfigurations>();
+    var apiUrl = localConfigurations.ApiConfigurations.Url;
+    client.BaseAddress = new Uri(apiUrl);
+
+});
+
+builder.Services.AddScoped<ILogger, Logger<LoggingBroker>>();
+builder.Services.AddScoped<IApiBroker, ApiBroker>();
+builder.Services.AddScoped<ILoggingBroker, LoggingBroker>();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

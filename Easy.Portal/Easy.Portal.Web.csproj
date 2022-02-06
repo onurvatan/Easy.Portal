@@ -6,4 +6,37 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Easy.Portal' " />
+  <ItemGroup>
+    <None Remove="Views\" />
+    <None Remove="Views\Pages\" />
+    <None Remove="Brokers\" />
+    <None Remove="Services\" />
+    <None Remove="Views\Bases\" />
+    <None Remove="Views\Components\" />
+    <None Remove="Brokers\API\" />
+    <None Remove="RESTFulSense" />
+    <None Remove="Models\" />
+    <None Remove="Models\Configurations\" />
+    <None Remove="Brokers\Logging\" />
+    <None Remove="Brokers\DateTimes\" />
+    <None Remove="Models\Basics\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="Views\Pages\" />
+    <Folder Include="Brokers\" />
+    <Folder Include="Services\" />
+    <Folder Include="Views\Bases\" />
+    <Folder Include="Views\Components\" />
+    <Folder Include="Brokers\API\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\Configurations\" />
+    <Folder Include="Brokers\Loggings\" />
+    <Folder Include="Brokers\DateTimes\" />
+    <Folder Include="Models\Basics\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="RESTFulSense" Version="2.4.0" />
+  </ItemGroup>
 </Project>
